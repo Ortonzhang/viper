@@ -1,0 +1,15 @@
+{
+  "name": "viperjs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "viper.js",
+  "scripts": {
+    "doc": "docco viper.js"
+  },
+  "keywords": ["util", "viper"],
+  "author": "https://github.com/Ortonzhang",
+  "license": "ISC",
+  "dependencies": {
+    "docco": "*"
+  }
+}
