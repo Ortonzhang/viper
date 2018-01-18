@@ -120,12 +120,11 @@ npm install viperjs
 <details>
 <summary>点击查看</summary>
 
-* [`digtize`](#digtize)
+* [`digitize`](#digitize)
 * [`anagrams`](#anagrams)
 * [`byteSize`](#byteSize)
-* [`Capitalizes`](#Capitalizes)
+* [`Capitalize`](#Capitalize)
 * [`capitalizeEveryWord`](#capitalizeEveryWord)
-* [`Capitalizes`](#Capitalizes)
 * [`escapeHTML`](#escapeHTML)
 * [`fromCamelCase`](#fromCamelCase)
 * [`mask`](#mask)
@@ -155,11 +154,11 @@ npm install viperjs
 * [`coalesceFactory`](#coalesceFactory)
 * [`extendHex`](#extendHex)
 * [`getURLParams`](#getURLParams)
-* [`hexToGRB`](#hexToGRB)
+* [`hexToRGB`](#hexToRGB)
 * [`randomHexCode`](#randomHexCode)
 * [`RGBToHex`](#RGBToHex)
 * [`timeTaken`](#timeTaken)
-* [`uuid`](#uuid)
+* [`UUIDGeneratorBrowser`](#UUIDGeneratorBrowser)
 * [`validEmail`](#validEmail)
 
 </details>
@@ -1023,3 +1022,1040 @@ viper.average([1,2,3]) // 2
 
 <br>[⬆ Back to top](#viperjs)
 
+
+## BROWSER
+
+### copyToClipboard
+复制字符串到剪贴板
+```js
+    viper.copyToClipboard = str => {
+        const el = document.createElement('textarea')
+        el.value = str
+        el.setAttribute('readonly', '')
+        el.style.position = 'absolute'
+        el.style.left ='-9999px'
+        document.body.appendChild(el)
+
+        const selected = document.getSelection().rangeCount > 0 ? document.getSelection().getRangeAt(0) : false
+
+        el.select()
+        document.execCommand('copy')
+        document.body.removeChild(el)
+        if(selected){
+            document.getSelection().removeAllRanges()
+            document.getSelection().addRange(selected)
+        }
+    }
+
+```
+<details>
+<summary>例子</summary>
+
+```js
+viper.copyToClipboard('111') //  111复制到了剪贴板
+```
+
+</details>
+
+<br>[⬆ Back to top](#viperjs)
+
+### getScrollPosition
+返回当前页面的滚动位置
+```js
+    viper.getScrollPosition = (el = window) =>({
+        x: el.pageXOffset !== undefined ? el.pageXOffset : el.scrollLeft,
+        y: el.pageYOffset !== undefined ? el.pageYOffset : el.scrollTop
+    })
+```
+<details>
+<summary>例子</summary>
+
+```js
+viper.getScrollPosition() //  {x: 3, y: 6023}
+```
+
+</details>
+
+<br>[⬆ Back to top](#viperjs)
+
+### getStyle
+返回指定元素的CSS规则的值
+```js
+    viper.getStyle = (el, ruleName) => getComputedStyle(el)[ruleName]
+```
+<details>
+<summary>例子</summary>
+
+```js
+viper.getStyle(document.querySelector('p'), 'font-sise') // 16px
+```
+
+</details>
+
+<br>[⬆ Back to top](#viperjs)
+
+### hasClass
+元素是否包含类
+```js
+    viper.hasClass = (el, className) => el.classList.contains(className)}
+```
+<details>
+<summary>例子</summary>
+
+```js
+viper.hasClass(document.querySelector('p.box'), 'box') // ture
+```
+
+</details>
+
+<br>[⬆ Back to top](#viperjs)
+
+
+### hide
+隐藏指定所有元素
+```js
+    viper.hide = (...el) => [...el].forEach( e => (e.style.display = 'node'))s
+```
+<details>
+<summary>例子</summary>
+
+```js
+viper.hide(document.querySelectorAll('img')) // 页面中的所以img被隐藏
+```
+
+</details>
+
+<br>[⬆ Back to top](#viperjs)
+
+
+### scrollToTop
+平滑返回顶部
+```js
+    viper.scrollToTop  = () => {
+        const c = document.documentElement.scrollTop || document.body.scrollTop
+        if(c > 0){
+            window.requestAnimationFrame(scrollToTop)
+            window.scrollTo(0, c - c / 8)
+        }
+    }
+```
+<details>
+<summary>例子</summary>
+
+```js
+viper.scrollToTop() // 页面返回顶部
+```
+
+</details>
+
+<br>[⬆ Back to top](#viperjs)
+
+
+### steStyle
+设置元素的css样式
+```js
+    viper.steStyle = (el, ruleNmae, val) =>{ el.style[ruleNmae] = val }
+```
+<details>
+<summary>例子</summary>
+
+```js
+viper.steStyle(document.querySelector('p'), 'font-size', '18px') // 第一个p元素字体大小为18像素
+```
+
+</details>
+
+<br>[⬆ Back to top](#viperjs)
+
+
+### show
+显示所有指定的元素
+```js
+    viper.show = (...el) => [...el].forEach(e.style.display = '')
+```
+<details>
+<summary>例子</summary>
+
+```js
+viper.show(document.querySelectorAll('img')) // 显示所有img标签
+```
+
+</details>
+
+<br>[⬆ Back to top](#viperjs)
+
+
+### toggleClass
+切换元素类名
+```js
+   viper.toggleClass = (el, className) => el.classList.toggleClass(className)
+```
+<details>
+<summary>例子</summary>
+
+```js
+viper.toggleClass(document.querySelector('div.box'), 'box') // 切换box类名
+```
+
+</details>
+
+<br>[⬆ Back to top](#viperjs)
+
+
+## FUNCTION
+
+### once
+确保函数只调用一次
+```js
+    viper.once = fn => {
+        let called = false;
+        return function(...args){
+            if(called) return
+            called = true
+            return fn.call(this, args)
+        }
+    }
+
+```
+<details>
+<summary>例子</summary>
+
+```js
+document.body.addEventListener('click', once(()=>{console.log(111)})) // 函数只会调用一次
+```
+
+</details>
+
+<br>[⬆ Back to top](#viperjs)
+
+### debounce
+防抖
+```js
+    viper.debounce = (func, wait, immediate) => {
+
+        var timeout, result;
+
+        return function () {
+            var context = this;
+            var args = arguments;
+
+            if (timeout) clearTimeout(timeout);
+            if (immediate) {
+                // 如果已经执行过，不再执行
+                var callNow = !timeout;
+                timeout = setTimeout(function(){
+                    timeout = null;
+                }, wait)
+                if (callNow) func.apply(context, args)
+            }
+            else {
+                timeout = setTimeout(function(){
+                    func.apply(context, args)
+                }, wait);
+            }
+        }
+    }
+```
+<details>
+<summary>例子</summary>
+
+```js
+viper.debounce(()=>{document.body.addEventListener('mouseover', ()=>{console.log(111)})}, 300) 
+```
+
+</details>
+
+<br>[⬆ Back to top](#viperjs)
+
+
+
+## MATH
+
+### factorial
+阶乘
+```js
+    viper.factorial = n => n <= 1 ? 1 : n * factorial(n - 1)
+```
+<details>
+<summary>例子</summary>
+
+```js
+viper.factorial(6) // 720
+```
+
+</details>
+
+<br>[⬆ Back to top](#viperjs)
+
+### gcd
+最大公约数
+```js
+    viper.gcd = (x, y) => !y ? x : gcd(y, x % y);
+```
+<details>
+<summary>例子</summary>
+
+```js
+viper.gcd(8, 36) // 4
+viper.gcd(...[8, 36, 12]) // 4
+```
+
+</details>
+
+<br>[⬆ Back to top](#viperjs)
+
+### inRange
+是否在指定范围内
+```js
+    viper.inRange = (n, start, end = null) => {
+        if(end && start > end) end = [start, (start = end)][0]
+        return end == null ? n >= 0 && n < start : n >= start && n < end 
+    }
+```
+<details>
+<summary>例子</summary>
+
+```js
+viper.inRange(3, 4, 5) // false
+viper.inRange(3, 4) // true
+```
+
+</details>
+
+<br>[⬆ Back to top](#viperjs)
+
+### isDivisible
+数值2能否否能整除数值1
+```js
+    viper.isDivisible = (first, second) => second % first === 0
+```
+<details>
+<summary>例子</summary>
+
+```js
+viper.isDivisible(3, 9) // true
+```
+
+</details>
+
+<br>[⬆ Back to top](#viperjs)
+
+### randomIntegerInRange
+随机获取指定范围内的整数
+```js
+     viper.randomIntegerInRange = (min, max) => Math.floor(Math.random() * ( max - min + 1)) + min
+```
+<details>
+<summary>例子</summary>
+
+```js
+viper.randomIntegerInRange(2, 5) // 3
+```
+
+</details>
+
+<br>[⬆ Back to top](#viperjs)
+
+### randomNumberInRange
+随机获取指定范围内的小数
+```js
+    viper.randomNumberInRange = (min, max) => Math.random() * (max - min) + min
+```
+<details>
+<summary>例子</summary>
+
+```js
+viper.randomNumberInRange(2, 10); // 6.0211363285087005
+```
+
+</details>
+
+<br>[⬆ Back to top](#viperjs)
+
+### round
+返回指定位数的小数，省略第二个参数 四舍五入为整数
+```js
+    viper.round = (n, decimals=0) => Number(`${Math.round(`${n}e${decimals}`)}e-${decimals}`)
+```
+<details>
+<summary>例子</summary>
+
+```js
+viper.round(4.22) // 4
+viper.round(1.005, 2); // 1.01
+```
+
+</details>
+
+<br>[⬆ Back to top](#viperjs)
+
+
+
+## OBJECT
+
+### pick
+从对象中挑选与给定键对应的键值对
+```js
+    viper.pick = (obj, arr) => arr.reduce((acc, curr)=> (curr in obj && (acc[curr] = obj[curr]), acc), {})
+```
+<details>
+<summary>例子</summary>
+
+```js
+viper.pick({ a: 1, b: '2', c: 3 }, ['a', 'c']); // { 'a': 1, 'c': 3 }
+```
+
+</details>
+
+<br>[⬆ Back to top](#viperjs)
+
+### cleanObj
+删除指定属性外的其他属性
+```js
+    viper.cleanObj = (obj, keysToKeep = [], childIndicator) => {
+        Object.keys(obj).forEach(key => {
+            if(key === childIndicator) {
+                cleanObj(obj[key], keysToKeep, childIndicator)
+            } else if(!keysToKeep.includes(key)){
+                delete obj[key]
+            }
+        })
+        return obj
+    }
+```
+<details>
+<summary>例子</summary>
+
+```js
+const testObj = { a: 1, b: 2, children: { a: 1, b: 2 } };
+viper.cleanObj(testObj, ['a'], 'children'); // { a: 1, children : { a: 1}}
+```
+
+</details>
+
+<br>[⬆ Back to top](#viperjs)
+
+### invertKeyValues
+反转key和value
+```js
+    viper.invertKeyValues = obj => Object.keys(obj).reduce((acc, key)=> {
+        acc[obj[key]] = key
+        return acc
+    },{})
+```
+<details>
+<summary>例子</summary>
+
+```js
+viper.invertKeyValues({ name: 'John', age: 20 }); // { 20: 'age', John: 'name' }
+```
+
+</details>
+
+<br>[⬆ Back to top](#viperjs)
+
+### lowercaseKeys
+小写所有key
+```js
+    viper.lowercaseKeys = obj => Object.keys(obj).reduce((acc, key)=> {
+        acc[key.toLowerCase()] = obj[key]
+        return acc
+    },{})
+```
+<details>
+<summary>例子</summary>
+
+```js
+const myObj = { Name: 'Adam', sUrnAME: 'Smith' };
+const myObjLower = viper.lowercaseKeys(myObj); // {name: 'Adam', surname: 'Smith'};
+```
+
+</details>
+
+<br>[⬆ Back to top](#viperjs)
+
+### merge
+合并两个或者多个对象
+```js
+    viper.merge = (...objs) => [...objs].reduce(
+        (acc, obj) => Object.keys(obj).reduce(
+            (a, k) => {
+                 acc[k] = acc.hasOwnProperty(k) ? [].concat(acc[k]).concat(obj[k]) : obj[k];
+                 return acc
+            },{}),
+        {}
+    )
+```
+<details>
+<summary>例子</summary>
+
+```js
+const object = {
+  a: [{ x: 2 }, { y: 4 }],
+  b: 1
+};
+const other = {
+  a: { z: 3 },
+  b: [2, 3],
+  c: 'foo'
+};
+viper.merge(object, other); // { a: [ { x: 2 }, { y: 4 }, { z: 3 } ], b: [ 1, 2, 3 ], c: 'foo' }
+```
+
+</details>
+
+<br>[⬆ Back to top](#viperjs)
+
+### size
+获取对象、数组、字符串的大小
+```js
+    viper.size = val => Array.isArray(val) ? val.length : val && typeof val === 'object' ? val.size || val.length || Object.keys(val).length : typeof val === 'string' ? new Blob([val]).size : 0
+```
+<details>
+<summary>例子</summary>
+
+```js
+viper.size([1, 2, 3, 4, 5]); // 5
+viper.size('size'); // 4
+viper.size({ one: 1, two: 2, three: 3 }); // 3
+```
+
+</details>
+
+<br>[⬆ Back to top](#viperjs)
+
+
+## STRING
+
+### digitize
+将数值字符串转换成数组
+```js
+    viper.digitize = n => [...`${n}`].map(i => parseInt(i))
+```
+<details>
+<summary>例子</summary>
+
+```js
+viper.digitize(123); // [1, 2, 3]
+```
+
+</details>
+
+<br>[⬆ Back to top](#viperjs)
+
+### anagrams
+生成一个字符串所有的排列组合
+```js
+    viper.anagrams = str => {
+        if(str.length <= 2) return str.length === 2 ? [str, str[1] + str[0]] : str
+        return str.split('').reduce((acc, letter, i) => acc.concat(anagrams(str.slice(0, i) + str.slice(i + 1)).map(val => letter + val)), [])
+    }
+```
+<details>
+<summary>例子</summary>
+
+```js
+viper.anagrams('abc'); // ['abc','acb','bac','bca','cab','cba']
+```
+
+</details>
+
+<br>[⬆ Back to top](#viperjs)
+
+### byteSize
+返回字节大小
+```js
+    viper.byteSize = str => new Blob([val]).size
+```
+<details>
+<summary>例子</summary>
+
+```js
+viper.byteSize('😀'); // 4
+viper.byteSize('Hello World'); // 11
+```
+
+</details>
+
+<br>[⬆ Back to top](#viperjs)
+
+### Capitalize
+首字母大写
+```js
+    viper.Capitalize = ([first, ...rest], lowerRest = false) => first.toUpperCase() + (lowerRest ? rest.join('').toLowerCase() : rest.join(''))
+```
+<details>
+<summary>例子</summary>
+
+```js
+viper.Capitalize('fooBar'); // 'FooBar'
+viper.Capitalize('fooBar', true); // 'Foobar'
+```
+
+</details>
+
+<br>[⬆ Back to top](#viperjs)
+
+### capitalizeEveryWord
+大写单词的每个首字母
+```js
+    viper.capitalizeEveryWord = str => str.replace(/\d[a-z]/g, char => char.toUpperCase())
+```
+<details>
+<summary>例子</summary>
+
+```js
+viper.capitalizeEveryWord('hello world!'); // 'Hello World!'
+```
+
+</details>
+
+<br>[⬆ Back to top](#viperjs)
+
+### decapitalize
+首字母小写
+```js
+    viper.decapitalize = ([first, ...rest], upperRest = false) => first.toLowerCase() + (upperRest ? rest.join('').toUpperCase() : rest.join(''));
+```
+<details>
+<summary>例子</summary>
+
+```js
+viper.decapitalize('FooBar'); // 'fooBar'
+viper.decapitalize('FooBar', true); // 'fOOBAR'
+```
+
+</details>
+
+<br>[⬆ Back to top](#viperjs)
+
+### escapeHTML
+转义HTML
+```js
+    viper.escapeHTML = str => str.replace(
+        /[&<>'"]/g,
+        tag => ({
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            "'": '&#39;',
+            '"': '&quot;'
+        })([tag] || tag)
+    )
+```
+<details>
+<summary>例子</summary>
+
+```js
+viper.escapeHTML('<a href="#">Me & you</a>'); // '&lt;a href=&quot;#&quot;&gt;Me &amp; you&lt;/a&gt;'
+```
+
+</details>
+
+<br>[⬆ Back to top](#viperjs)
+
+### fromCamelCase
+将驼峰字符改成字符串
+```js
+   viper.fromCamelCase = (str, separator = '_') => str.replace(/([a-z\d])(A-Z)/g, '$1' + separator + '$2').replace(/([A-Z]+)([A-Z][a-z\d]+)/g, '$1' + separator + '$2').toLowerCase()
+```
+<details>
+<summary>例子</summary>
+
+```js
+viper.fromCamelCase('someDatabaseFieldName', ' '); // 'some database field name'
+viper.fromCamelCase('someLabelThatNeedsToBeCamelized', '-'); // 'some-label-that-needs-to-be-camelized'
+viper.fromCamelCase('someJavascriptProperty', '_'); // 'some_javascript_property'
+```
+
+</details>
+
+<br>[⬆ Back to top](#viperjs)
+
+
+### mask
+用指定的字符替换除最后指定个字符以外的所有字符
+```js
+    viper.mask = (str, num = 4, mask = '*') => {
+        return ('' + str).slice(0, -num).replace(/./g, mask) + ('' + str).slice(-num)
+    }
+```
+<details>
+<summary>例子</summary>
+
+```js
+viper.mask(1234567890); // '******7890'
+viper.mask(1234567890, 3); // '*******890'
+viper.mask(1234567890, -4, '$'); // '$$$$567890'
+```
+
+</details>
+
+<br>[⬆ Back to top](#viperjs)
+
+### palindrome
+检查回文
+```js
+     viper.palindrome = (str) => {
+        const s = str.toLowerCase().replace(/[\W_]/g, '')
+        return (
+            s === s.split().reverse().join('')
+        )
+    }
+```
+<details>
+<summary>例子</summary>
+
+```js
+viper.palindrome('taco cat'); // true
+```
+
+</details>
+
+<br>[⬆ Back to top](#viperjs)
+
+### reverseString
+反转字符串
+```js
+    viper.reverseString = (str) => [...str].reverse().join('')
+```
+<details>
+<summary>例子</summary>
+
+```js
+viper.reverseString('viper') // repiv
+```
+
+</details>
+
+<br>[⬆ Back to top](#viperjs)
+
+### sortString
+按字母顺序排列字符串中的字符
+```js
+    viper.sortString = (str) => [...str].sort((a, b) => a.localeCompare(b)).join('')
+```
+<details>
+<summary>例子</summary>
+
+```js
+viper.sortString('cabbage'); // 'aabbceg'
+```
+
+</details>
+
+<br>[⬆ Back to top](#viperjs)
+
+### toCamelCase
+将字符串改为驼峰字符串
+```js
+    viper.toCamelCase = (str) => {
+        let s = 
+            str && 
+            str
+            .match(/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g)
+            .map(x => x.slice(0, 1).toUpperCase() + x.slice(1).toLowerCase())
+            .join('');
+        return s.slice(0, 1).toLowerCase() + s.slice(1)
+    }
+```
+<details>
+<summary>例子</summary>
+
+```js
+viper.toCamelCase('some_database_field_name'); // 'someDatabaseFieldName'
+viper.toCamelCase('Some label that needs to be camelized'); // 'someLabelThatNeedsToBeCamelized'
+viper.toCamelCase('some-javascript-property'); // 'someJavascriptProperty'
+```
+
+</details>
+
+<br>[⬆ Back to top](#viperjs)
+
+### truncateString
+截断字符串在后面添加…
+```js
+    viper.truncateString = (str, num) => {
+        return str.length > num ? str.slice(0, num > 3 ? num -3 : num) + '...' : str
+    }
+```
+<details>
+<summary>例子</summary>
+
+```js
+truncateString('boomerang', 7); // 'boom...'
+```
+
+</details>
+
+<br>[⬆ Back to top](#viperjs)
+
+### unescapeHTML
+反转义HTML字符串
+```js
+   viper.unescapeHTML = (str) => str.replace(
+        /&amp;|&lt;|&gt;|&#39;|&quot;/g,
+        tag =>
+        ({
+            '&amp;': '&',
+            '&lt;': '<',
+            '&gt;': '>',
+            '&#39;': "'",
+            '&quot;': '"'
+        }[tag] || tag)
+    )
+```
+<details>
+<summary>例子</summary>
+
+```js
+viper.unescapeHTML('&lt;a href=&quot;#&quot;&gt;Me &amp; you&lt;/a&gt;'); // '<a href="#">Me & you</a>'
+```
+</details>
+
+<br>[⬆ Back to top](#viperjs)
+
+
+## TYPE
+
+### digitize
+校验字符是否是json
+```js
+      viper.isValidJSON = obj => {
+        try {
+            JSON.parse(obj)
+        } catch (e) {
+            return false
+        }
+    }
+```
+<details>
+<summary>例子</summary>
+
+```js
+viper.isValidJSON('{"name":"Adam","age":20}'); // true
+viper.isValidJSON('{"name":"Adam",age:"20"}'); // false
+viper.isValidJSON(null); // true
+```
+
+</details>
+
+<br>[⬆ Back to top](#viperjs)
+
+### getType
+获取类型 undefined、null、NaN 直接返回 其他返回小写的构造函数的名称
+```js
+    viper.getType = v => v !== v ? 'NaN' : v === undefined ? 'undefined' : v === null ? 'null' : v.constructor.name.toLowerCase()
+```
+<details>
+<summary>例子</summary>
+
+```js
+viper.getType(new Set([1, 2, 3])); // 'set'
+viper.getType({}) // object
+viper.getType([]) // array
+```
+
+</details>
+
+<br>[⬆ Back to top](#viperjs)
+
+
+
+## UTILITY
+
+### coalesce
+返回第一个非null非undefined的值
+```js
+    viper.coalesce = (...args) => args.find( _ => ![undefined, null].includes(_))
+```
+<details>
+<summary>例子</summary>
+
+```js
+viper.coalesce(null, undefined, '', NaN, 'Waldo'); // ""
+```
+
+</details>
+
+<br>[⬆ Back to top](#viperjs)
+
+### coalesceFactory
+返回第一个符合过滤函数的值
+```js
+    viper.coalesceFactory = valid => (...args) => args.find(valid)
+```
+<details>
+<summary>例子</summary>
+
+```js
+const customCoalesce = coalesceFactory(_ => ![null, undefined, '', NaN].includes(_));
+viper.customCoalesce(undefined, null, NaN, '', 'Waldo'); // "Waldo"
+```
+
+</details>
+
+<br>[⬆ Back to top](#viperjs)
+
+### extendHex
+将3位数的hex颜色值转换成6为数的值
+```js
+    viper.extendHex = shortHex => '#' + shortHex.slice(shortHex.startsWith('#') ? 1 : 0).split('').map(x => x + x ).join('')
+```
+<details>
+<summary>例子</summary>
+
+```js
+viper.extendHex('#03f'); // '#0033ff'
+```
+
+</details>
+
+<br>[⬆ Back to top](#viperjs)
+
+### getURLParams
+返回对象包含url上的参数
+```js
+   viper.getURLParams = url => url.match(/([^?=&]+)(=([^&]*))/g).reduce(
+        (a, v) => ((a[v.slice(0, v.indexOf('='))] = v.slice(v.indexOf('=') + 1 )),a), {}
+    )
+```
+<details>
+<summary>例子</summary>
+
+```js
+viper.getURLParams('http://url.com/page?name=Adam&surname=Smith'); // {name: 'Adam', surname: 'Smith'}
+```
+
+</details>
+
+<br>[⬆ Back to top](#viperjs)
+
+### hexToRGB
+hex转rgb
+```js
+    viper.hexToRGB = hex => {
+        let alpha = false,
+        h = hex.slice(hex.startsWith('#') ? 1 : 0);
+        if (h.length === 3) h = [...h].map(x => x + x).join('');
+        else if (h.length === 8) alpha = true;
+        h = parseInt(h, 16);
+        return (
+            'rgb' +
+            (alpha ? 'a' : '') +
+            '(' +
+            (h >>> (alpha ? 24 : 16)) +
+            ', ' +
+            ((h & (alpha ? 0x00ff0000 : 0x00ff00)) >>> (alpha ? 16 : 8)) +
+            ', ' +
+            ((h & (alpha ? 0x0000ff00 : 0x0000ff)) >>> (alpha ? 8 : 0)) +
+            (alpha ? `, ${h & 0x000000ff}` : '') +
+            ')'
+        );
+    }
+```
+<details>
+<summary>例子</summary>
+
+```js
+viper.hexToRGB('#27ae60ff'); // 'rgba(39, 174, 96, 255)'
+viper.hexToRGB('27ae60'); // 'rgb(39, 174, 96)'
+viper.hexToRGB('#fff'); // 'rgb(255, 255, 255)'
+```
+
+</details>
+
+<br>[⬆ Back to top](#viperjs)
+
+### randomHexCode
+随机生成hex颜色值
+```js
+    viper.randomHexCode = () => {
+        let n = ((Math.random() * 0xfffff) | 0).toString(16)
+        return '#' + (n.length !== 6 ? ((Math.random() * 0xf) | 0).toString(16) + n : n)
+    }
+```
+<details>
+<summary>例子</summary>
+
+```js
+viper.randomHexCode()  // "#e34155"
+```
+
+</details>
+
+<br>[⬆ Back to top](#viperjs)
+
+### RGBToHex
+RGB转hex色值
+```js
+    viper.RGBToHex = (r, g, b) => ((r << 16) + (g << 8) + b).toString(16).padStart(6, '0')
+```
+<details>
+<summary>例子</summary>
+
+```js
+viper.RGBToHex(255, 165, 1); // 'ffa501'
+```
+
+</details>
+
+<br>[⬆ Back to top](#viperjs)
+
+### timeTaken
+返回函数运行时长
+```js
+    viper.timeTaken = callback => {
+        console.time('timeTaken')
+        const cb = callback()
+        console.timeEnd('timeTaken')
+        return cb
+    }
+```
+<details>
+<summary>例子</summary>
+
+```js
+viper.timeTaken(() => Math.pow(2, 10)); // 1024, (logged): timeTaken: 0.02099609375ms
+```
+
+</details>
+
+<br>[⬆ Back to top](#viperjs)
+
+### UUIDGeneratorBrowser
+使用crypto API 生成UUID 符合RFC4122 版本 4
+```js
+    viper.UUIDGeneratorBrowser = () => {
+       return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
+            (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+        )
+    }
+```
+<details>
+<summary>例子</summary>
+
+```js
+viper.UUIDGeneratorBrowser() // '7982fcfe-5721-4632-bede-6000885be57d'
+```
+
+</details>
+
+<br>[⬆ Back to top](#viperjs)
+
+### validEmail
+邮箱验证
+```js
+   viper.validEmail = str => /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(str)
+
+```
+<details>
+<summary>例子</summary>
+
+```js
+viper.validEmail('mymail@gmail.com') //  true
+```
+
+</details>
+
+<br>[⬆ Back to top](#viperjs)

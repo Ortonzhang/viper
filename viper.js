@@ -399,32 +399,26 @@
     viper.debounce = (func, wait, immediate) =>{
         var timeout, result;
 
-        var debounced = function () {
-            var context = this;
-            var args = arguments;
+    return function () {
+        var context = this;
+        var args = arguments;
 
-            if (timeout) clearTimeout(timeout);
-            if (immediate) {
-                var callNow = !timeout;
-                timeout = setTimeout(function(){
-                    timeout = null;
-                }, wait)
-                if (callNow) result = func.apply(context, args)
-            }
-            else {
-                timeout = setTimeout(function(){
-                    func.apply(context, args)
-                }, wait);
-            }
-            return result;
-        };
-
-        debounced.cancel = function() {
-            clearTimeout(timeout);
-            timeout = null;
-        };
-
-        return debounced;
+        if (timeout) clearTimeout(timeout);
+        if (immediate) {
+            // 如果已经执行过，不再执行
+            var callNow = !timeout;
+            timeout = setTimeout(function(){
+                timeout = null;
+            }, wait)
+            if (callNow) result = func.apply(context, args)
+        }
+        else {
+            timeout = setTimeout(function(){
+                func.apply(context, args)
+            }, wait);
+        }
+        return result;
+    }
     
     }
 
@@ -452,7 +446,7 @@
     viper.randomIntegerInRange = (min, max) => Math.floor(Math.random() * ( max - min + 1)) + min
 
     // 随机获取指定范围内的小数
-    viper.randomNumberInRange = (min, max) => Math.random() * (mix - min) + min
+    viper.randomNumberInRange = (min, max) => Math.random() * (max - min) + min
 
     // 返回指定位数的小数，省略第二个参数 四舍五入为整数
     viper.round = (n, decimals=0) => Number(`${Math.round(`${n}e${decimals}`)}e-${decimals}`);
@@ -477,7 +471,7 @@
         return obj
     }
     // 反转key和value
-    viper.invertKeyValus = obj => Object.keys(obj).reduce((acc, key)=> {
+    viper.invertKeyValues = obj => Object.keys(obj).reduce((acc, key)=> {
         acc[obj[key]] = key
         return acc
     },{})
@@ -507,7 +501,7 @@
 
 
    // 将数值字符串转换成数组
-   viper.digtize = n => [...`${n}`].map(i => parseInt(i))
+   viper.digitize = n => [...`${n}`].map(i => parseInt(i))
    
     // 生成一个字符串所有的排列组合
     viper.anagrams = str => {
@@ -524,7 +518,7 @@
      * @param { 字符串 } param0 
      * @param { 是否改变剩余字符为小写 默认为false } lowerRest 
      */
-    viper.Capitalizes = ([first, ...rest], lowerRest = false) => first.toUpperCase() + (lowerRest ? rest.join('').toLowerCase() : rest.join(''))
+    viper.Capitalize = ([first, ...rest], lowerRest = false) => first.toUpperCase() + (lowerRest ? rest.join('').toLowerCase() : rest.join(''))
 
     // 大写单词的每个首字母
     viper.capitalizeEveryWord = str => str.replace(/\d[a-z]/g, char => char.toUpperCase())
@@ -535,7 +529,8 @@
      * @param { 字符串 } param0 
      * @param { 是否改变剩余字符为大写 默认为false } lowerRest 
      */
-    viper.Capitalizes = ([first, ...rest], lowerRest = false) => first.toLowerCase() + (lowerRest ? rest.join('').toUpperCase() : rest.join(''))
+    viper.decapitalize = ([first, ...rest], upperRest = false) => first.toLowerCase() + (upperRest ? rest.join('').toUpperCase() : rest.join(''));
+    
 
     // 转义HTML
     viper.escapeHTML = str => str.replace(
@@ -652,7 +647,7 @@
     )
 
     // hex转rgb
-    viper.hexToGRB = hex => {
+    viper.hexToRGB = hex => {
         let alpha = false,
         h = hex.slice(hex.startsWith('#') ? 1 : 0);
         if (h.length === 3) h = [...h].map(x => x + x).join('');
