@@ -16,49 +16,49 @@ npm install viperjs
 <details>
 <summary>点击查看</summary>
 
-* [`ArrayConcat`](#ArrayConcat)
+* [`arrayConcat`](#arrayConcat)
 * [`difference`](#difference)
 * [`includes`](#includes)
 * [`intersection`](#intersection)
 * [`remove`](#remove)
 * [`sample`](#sample)
-* [`sampleSize`](#sampleSize)
+* [`samplesize`](#samplesize)
 * [`chunk`](#chunk)
 * [`compact`](#compact)
-* [`countOccurrences`](#countOccurrences)
+* [`countoccurrences`](#countoccurrences)
 * [`deepFlatten`](#deepFlatten)
 * [`flatten`](#flatten)
-* [`forEachRight`](#forEachRight)
-* [`distinctValuesOfArray`](#distinctValuesOfArray)
-* [`dropRight`](#dropRight)
-* [`everyNth`](#everyNth)
-* [`filterNonUnique`](#filterNonUnique)
-* [`indexOfAll`](#indexOfAll)
+* [`foreachright`](#foreachright)
+* [`distinctvaluesofarray`](#distinctvaluesofarray)
+* [`dropright`](#dropright)
+* [`everynth`](#everynth)
+* [`filternonunique`](#filternonunique)
+* [`indexofall`](#indexofall)
 * [`initial`](#initial)
-* [`initializeArrayWithRange`](#initializeArrayWithRange)
-* [`initializeArrayWithValues`](#initializeArrayWithValues)
-* [`isSorted`](#isSorted)
+* [`initializearraywithrange`](#initializearraywithrange)
+* [`initializearraywithvalues`](#initializearraywithvalues)
+* [`issorted`](#issorted)
 * [`join`](#join)
 * [`last`](#last)
-* [`longestItem`](#longestItem)
-* [`maxN`](#maxN)
-* [`minN`](#minN)
-* [`nthElement`](#nthElement)
+* [`longestitem`](#longestitem)
+* [`maxn`](#maxn)
+* [`minn`](#minn)
+* [`nthelement`](#nthelement)
 * [`partition`](#partition)
 * [`pull`](#pull)
-* [`pullAtIndex`](#pullAtIndex)
-* [`pullAtValue`](#pullAtValue)
-* [`reducedFilter`](#reducedFilter)
+* [`pullatindex`](#pullatindex)
+* [`pullatvalue`](#pullatvalue)
+* [`reducedfilter`](#reducedfilter)
 * [`shuffle`](#shuffle)
 * [`similarity`](#similarity)
-* [`symmetricDifference`](#symmetricDifference)
+* [`symmetricdifference`](#symmetricdifference)
 * [`tail`](#tail)
 * [`take`](#take)
-* [`takeRight`](#takeRight)
+* [`takeright`](#takeright)
 * [`union`](#union)
 * [`without`](#without)
 * [`zip`](#zip)
-* [`zipObject`](#zipObject)
+* [`zipobject`](#zipobject)
 * [`average`](#average)
 
 </details>
@@ -68,15 +68,15 @@ npm install viperjs
 <details>
 <summary>点击查看</summary>
 
-* [`copyToClipboard`](#copyToClipboard)
-* [`getScrollPosition`](#getScrollPosition)
-* [`getStyle`](#getStyle)
-* [`hasClass`](#hasClass)
+* [`copytoclipboard`](#copytoclipboard)
+* [`getscrollposition`](#getscrollposition)
+* [`getstyle`](#getstyle)
+* [`hasclass`](#hasclass)
 * [`hide`](#hide)
-* [`scrollToTop`](#scrollToTop)
-* [`steStyle`](#steStyle)
+* [`scrolltotop`](#scrolltotop)
+* [`stestyle`](#stestyle)
 * [`show`](#show)
-* [`toggleClass`](#toggleClass)
+* [`toggleclass`](#toggleclass)
 
 </details>
 
@@ -95,10 +95,10 @@ npm install viperjs
 
 * [`factorial`](#factorial)
 * [`gcd`](#gcd)
-* [`inRange`](#inRange)
-* [`isDivisible`](#isDivisible)
-* [`randomIntegerInRange`](#randomIntegerInRange)
-* [`randomNumberInRange`](#randomNumberInRange)
+* [`inrange`](#inrange)
+* [`isdivisible`](#isdivisible)
+* [`randomintegerinrange`](#randomintegerinrange)
+* [`randomnumberinrange`](#randomnumberinrange)
 * [`round`](#round)
 
 </details>
@@ -108,9 +108,9 @@ npm install viperjs
 <summary>点击查看</summary>
 
 * [`pick`](#pick)
-* [`cleanObj`](#cleanObj)
-* [`invertKeyValus`](#invertKeyValus)
-* [`lowercaseKeys`](#lowercaseKeys)
+* [`cleanobj`](#cleanobj)
+* [`inverkeyvalus`](#inverkeyvalus)
+* [`lowercasekeys`](#lowercasekeys)
 * [`merge`](#merge)
 * [`size`](#size)
 
@@ -123,17 +123,17 @@ npm install viperjs
 * [`digitize`](#digitize)
 * [`anagrams`](#anagrams)
 * [`byteSize`](#byteSize)
-* [`Capitalize`](#Capitalize)
-* [`capitalizeEveryWord`](#capitalizeEveryWord)
-* [`escapeHTML`](#escapeHTML)
-* [`fromCamelCase`](#fromCamelCase)
+* [`capitalize`](#capitalize)
+* [`capitalizeeveryword`](#capitalizeeveryword)
+* [`escapehtml`](#escapehtml)
+* [`fromcamelcase`](#fromcamelcase)
 * [`mask`](#mask)
 * [`palindrome`](#palindrome)
-* [`reverseString`](#reverseString)
-* [`sortString`](#sortString)
-* [`toCamelCase`](#toCamelCase)
-* [`truncateString`](#truncateString)
-* [`unescapeHTML`](#unescapeHTML)
+* [`reversestring`](#reversestring)
+* [`sortstring`](#sortstring)
+* [`tocamelCase`](#tocamelCase)
+* [`truncatestring`](#truncatestring)
+* [`unescapehtml`](#unescapehtml)
 
 </details>
 
@@ -141,8 +141,8 @@ npm install viperjs
 <details>
 <summary>点击查看</summary>
 
-* [`isValidJSON`](#isValidJSON)
-* [`getType`](#getType)
+* [`isvalidjson`](#isvalidjson)
+* [`gettype`](#gettype)
 
 </details>
 
@@ -151,18 +151,17 @@ npm install viperjs
 <summary>点击查看</summary>
 
 * [`coalesce`](#coalesce)
-* [`coalesceFactory`](#coalesceFactory)
-* [`extendHex`](#extendHex)
-* [`getURLParams`](#getURLParams)
-* [`hexToRGB`](#hexToRGB)
-* [`randomHexCode`](#randomHexCode)
-* [`RGBToHex`](#RGBToHex)
-* [`timeTaken`](#timeTaken)
-* [`UUIDGeneratorBrowser`](#UUIDGeneratorBrowser)
-* [`validEmail`](#validEmail)
+* [`coalescefactory`](#coalescefactory)
+* [`extendhex`](#extendhex)
+* [`geturlparams`](#geturlparams)
+* [`hextorgb`](#hextorgb)
+* [`randomhexcode`](#randomhexcode)
+* [`rgbtohex`](#rgbtohex)
+* [`timetaken`](#timetaken)
+* [`uuidgeneratorbrowser`](#uuidgeneratorbrowser)
+* [`validemail`](#validemail)
 
 </details>
-
 ---
 
 ## ARRAY
