@@ -1259,7 +1259,15 @@ document.body.addEventListener('click', once(()=>{console.log(111)})) // 函数�
 <summary>例子</summary>
 
 ```js
-viper.debounce(()=>{document.body.addEventListener('mouseover', ()=>{console.log(111)})}, 300) 
+var count = 1;
+var container = document.body;
+
+function getUserAction() {
+    console.log(count)
+};
+
+container.onmousemove = viper.debounce(getUserAction, 1000);
+
 ```
 
 </details>
